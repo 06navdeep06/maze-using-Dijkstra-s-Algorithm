@@ -40,3 +40,31 @@ def dijkstra_animated(graph, start, end):
                 heapq.heappush(priority_queue, (distance + 1, neighbor, path))
 
     yield []  # Yield an empty list if no path is found
+
+def dijkstra(graph, start, end):
+    """
+    Finds the shortest path using Dijkstra's algorithm.
+
+    Returns:
+        (list, set): A tuple containing the final path and the set of all visited nodes.
+    """
+    priority_queue = [(0, start, [])]
+    visited = set()
+
+    while priority_queue:
+        (distance, current_node, path) = heapq.heappop(priority_queue)
+
+        if current_node in visited:
+            continue
+
+        visited.add(current_node)
+        path = path + [current_node]
+
+        if current_node == end:
+            return path, visited
+
+        for neighbor in graph.get(current_node, []):
+            if neighbor not in visited:
+                heapq.heappush(priority_queue, (distance + 1, neighbor, path))
+
+    return [], visited

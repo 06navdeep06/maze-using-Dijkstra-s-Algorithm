@@ -335,8 +335,6 @@ if __name__ == '__main__':
         height = 25
 
     # Generate the maze
-    maze = Maze.generate(width, height)
-
-    # Create and run the visualizer
-    visualizer = MazeVisualizer(maze, cell_size=25)
-    visualizer.run()
+    # The new visualizer creates its own maze instance
+    app = MazeVisualizer(maze_width=width, maze_height=height)
+    app.run()
