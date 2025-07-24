@@ -31,11 +31,12 @@ def dijkstra_animated(graph, start, end):
         yield current_node  # Yield the current node for visualization
 
         if current_node == end:
-            return path  # Return the final path
+            yield path  # Yield the final path
+            return
 
         for neighbor in graph.get(current_node, []):
             if neighbor not in visited:
                 # Assuming edge weight is always 1 for an unweighted maze grid
                 heapq.heappush(priority_queue, (distance + 1, neighbor, path))
 
-    return []  # Return an empty list if no path is found
+    yield []  # Yield an empty list if no path is found
