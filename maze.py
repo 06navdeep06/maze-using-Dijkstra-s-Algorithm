@@ -321,8 +321,7 @@ class Maze(object):
         return '\n'.join(''.join(line) for line in matrix) + '\n'
 
 if __name__ == '__main__':
-    from dijkstra import dijkstra_animated
-    from visualizer import MazeVisualizer, GREEN, RED
+    from visualizer import MazeVisualizer
     import sys
 
     if len(sys.argv) > 1:
@@ -338,26 +337,6 @@ if __name__ == '__main__':
     # Generate the maze
     maze = Maze.generate(width, height)
 
-    # Define start and end points
-    start_node = (0, 0)
-    end_node = (width - 1, height - 1)
-
-    # Set up the visualizer
+    # Create and run the visualizer
     visualizer = MazeVisualizer(maze, cell_size=25)
-    visualizer.draw_maze()
-    visualizer.highlight_cell(start_node, GREEN)
-    visualizer.highlight_cell(end_node, RED)
-
-    # Run the pathfinding algorithm and animate it
-    graph = maze.to_graph()
-    path_generator = dijkstra_animated(graph, start_node, end_node)
-    
-    # Animate the exploration and get the final path from the generator's return value
-    final_path = visualizer.animate_pathfinding(path_generator, start_node, end_node)
-
-    # Draw the final path if it was found
-    if final_path:
-        visualizer.draw_path(final_path)
-    
-    # Keep the window open
     visualizer.run()
